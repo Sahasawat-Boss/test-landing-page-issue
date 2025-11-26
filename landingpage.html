@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page Test</title>
+    <style>
+      :root {
+        --yellow: #ffda00;
+        --text-color: #554242;
+
+        /* ใช้ clamp ให้ยืดหยุ่นตามหน้าจอ */
+        --font-title: clamp(30px, 4.5vw, 45px);
+        --font-subheadline: clamp(16px, 2.2vw, 22px);
+        --font-disclaimer: clamp(12px, 1.8vw, 16px);
+        --font-button: clamp(16px, 2.2vw, 16px);
+
+        --font-KrungsriCondensed: "KrungsriCondensed", sans-serif;
+        --content-max: 800px; /* กรอบความกว้างสูงสุดของเนื้อหา */
+        --text-max: 640px; /* กรอบความกว้างของย่อหน้า */
+        --radius: 10px;
+        --shadow-title: 0 4px 6px rgba(0, 0, 0, 0.28),
+          0 8px 5px rgba(0, 0, 0, 0.18);
+      }
+
+      /* ===== Base (mobile-first) ===== */
+      .ldp-container {
+        position: relative;
+        display: flex;
+        align-items: center; /* ให้ข้อความลอยขึ้นจากล่างบนมือถือ */
+        justify-content: center;
+        text-align: center;
+        font-family: var(--font-KrungsriCondensed);
+        flex-direction: column;
+        /* กันภาพล้น */
+      }
+
+      .ldp-container {
+        color: var(--text-color) !important;
+      }
+
+      .ldp-banner {
+        height: 100vh;
+        position: relative;
+      }
+      .ldp-banner img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover; /* มือถือใช้ cover ให้เต็มเฟรม */
+        object-position: center;
+      }
+
+      .ldp-content {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        top: 22%;
+        margin-inline: auto;
+        padding: 0 10px;
+        color: var(--text-color) !important;
+        word-wrap: break-word;
+      }
+
+      .ldp-h1,
+      .ldp-content h1 {
+        font-size: var(--font-title);
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        line-height: 1.4;
+        text-shadow: var(--shadow-title);
+        color: var(--text-color) !important;
+        margin-bottom: 40px;
+      }
+
+      .ldp-subheadline,
+      .ldp-disclaimer {
+        margin: 0 auto 20px;
+        line-height: 1.5;
+        max-width: var(--text-max);
+        color: var(--text-color) !important;
+        word-wrap: break-word;
+      }
+
+      /* ขนาดตัวหนังสือ subheadline */
+      .ldp-subheadline {
+        font-size: var(--font-subheadline);
+        margin-bottom: 40px;
+      }
+
+      /* ขนาดตัวหนังสือ disclaimer */
+      .ldp-disclaimer {
+        font-size: var(--font-disclaimer);
+      }
+
+      .ldp-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
+
+      .ldp-btn {
+        font-size: var(--font-button);
+        padding: 8px 34px;
+        background: var(--yellow);
+        border-radius: var(--radius);
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* เพื่อไม่ให้ติด plugin เก่า */
+      .ldp-container .ldp-buttons a.ldp-btn,
+      .ldp-container .ldp-buttons a.ldp-btn:link,
+      .ldp-container .ldp-buttons a.ldp-btn:visited,
+      .ldp-container .ldp-buttons a.ldp-btn:hover,
+      .ldp-container .ldp-buttons a.ldp-btn:focus,
+      .ldp-container .ldp-buttons a.ldp-btn:active,
+      .ldp-container .ldp-buttons a.ldp-btn:focus-visible {
+        color: var(--text-color);
+        text-decoration: none;
+        outline: none;
+        box-shadow: none;
+      }
+
+      /* ===== ≥ 1025px (desktop) padding text ===== */
+
+      @media (min-width: 1025px) {
+        .ldp-content h1 {
+          margin-bottom: 40px;
+        }
+        .ldp-subheadline,
+        .ldp-disclaimer {
+          margin-bottom: 40px;
+        }
+      }
+
+      /* ===== ≥ 1025px (desktop) ===== */
+      @media (min-width: 1025px) {
+        /* ใช้กฎเดสก์ท็อป เฉพาะเมื่อมีรูป Desktop เท่านั้น */
+        .ldp-container:not(.ldp--mobile-mode) {
+          justify-content: flex-start;
+          text-align: left;
+          padding: 0;
+          flex-direction: row;
+          color: var(--text-color);
+        }
+
+        .ldp-container:not(.ldp--mobile-mode) .ldp-banner {
+          position: relative;
+          inset: auto;
+          z-index: 0;
+          width: 100%;
+          height: auto;
+        }
+
+        .ldp-container:not(.ldp--mobile-mode) .ldp-banner img {
+          object-fit: contain;
+        }
+
+        .ldp-container:not(.ldp--mobile-mode) .ldp-content {
+          position: absolute;
+          max-width: none !important;
+          text-align: center; /* เปลี่ยนเป็น left ได้ถ้าต้องการ */
+          width: 100%;
+          bottom: auto;
+        }
+      }
+
+      /* -------------------- ซ่อน/แสดงข้อความตามขนาดหน้าจอ -------------------- */
+      /* ค่าเริ่ม (มือถือ) */
+      .ldp-text-mobile {
+        display: block;
+      }
+      .ldp-text-desktop {
+        display: none;
+      }
+
+      /* เดสก์ท็อป */
+      @media (min-width: 1025px) {
+        .ldp-text-mobile {
+          display: none;
+        }
+        .ldp-text-desktop {
+          display: block;
+        }
+      }
+
+      /* ===== Update Disclaimer ===== */
+
+      /* Make disclaimer full width */
+      .ldp-disclaimer {
+        max-width: 100% !important;
+        padding: 0 20px !important; /* มีระยะขอบซ้ายขวา */
+      }
+
+      /* ===== Condition Mobile and Desktop Disclaimer ===== */
+      /* Disclaimer display rules */
+      .ldp-disclaimer-mobile {
+        display: block;
+      }
+      .ldp-disclaimer-desktop {
+        display: none;
+      }
+
+      /* Desktop ≥ 1025px */
+      @media (min-width: 1025px) {
+        .ldp-disclaimer-mobile {
+          display: none;
+        }
+        .ldp-disclaimer-desktop {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <body style="background-color: #ffffff">
+      <main id="ldp_page" ldp-name="Sample Document" class="ldp-container">
+        <picture class="ldp-banner" aria-hidden="true">
+          <source media="(max-width: 1024px)" srcset="mobile-banner.jpg" />
+          <img
+            class="img-responsive img-center"
+            src="desktop-banner.jpg"
+            alt="Sample Alt Text"
+          />
+        </picture>
+
+        <div
+          class="ldp-content"
+          role="region"
+          aria-label="Thai ESGX Information"
+        >
+          <!-- Text Desktop Version -->
+          <div class="ldp-text-desktop">
+            <h1 class="ldp-h1 header-desktop">Headline Desktop Sample</h1>
+            <p class="ldp-subheadline">Subheadline Desktop Sample</p>
+          </div>
+
+          <!-- Text Mobile Version -->
+          <div class="ldp-text-mobile">
+            <h1 class="ldp-h1 header-mobile">Headline Mobile Sample</h1>
+            <p class="ldp-subheadline">Subheadline Mobile Sample</p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+          </div>
+
+          <div class="ldp-buttons">
+            <a
+              id="ldp-btn1"
+              href="#"
+              target="_self"
+              class="ldp-btn ldp-btn-warning-banner"
+              style="color: #554242; background-color: #ffda00"
+              banner-type="sample"
+            >
+              Button 1
+            </a>
+
+            <a
+              id="ldp-btn2"
+              href="#"
+              target="_top"
+              rel="noopener"
+              class="ldp-btn ldp-btn-warning-banner"
+              style="color: #554242; background-color: #ffee55"
+              banner-type="sample"
+            >
+              Button 2
+            </a>
+          </div>
+
+          <!-- Disclaimer Desktop -->
+          <div class="ldp-disclaimer-desktop">
+            <p class="ldp-disclaimer">
+              Disclaimer Desktop Sample Text – Lorem ipsum dolor sit amet.
+            </p>
+          </div>
+
+          <!-- Disclaimer Mobile -->
+          <div class="ldp-disclaimer-mobile">
+            <p class="ldp-disclaimer">
+              Disclaimer Mobile Sample Text – Lorem ipsum dolor sit amet. Disclaimer Mobile Sample Text – Lorem ipsum dolor sit amet. Disclaimer Mobile Sample Text – Lorem ipsum dolor sit amet.
+            </p>
+          </div>
+        </div>
+      </main>
+    </body>
+  </body>
+</html>
