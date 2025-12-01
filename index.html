@@ -44,12 +44,6 @@
         color: var(--text-color) !important;
       }
 
-      @media screen and (orientation: landscape) {
-  .ldp-banner {
-    height: 80vh;  /* ลด vh ไม่ให้เพี้ยน */
-  }
-}
-
       .ldp-banner {
         height: 100dvh;
         position: relative;
@@ -61,6 +55,19 @@
         object-fit: cover; /* มือถือใช้ cover ให้เต็มเฟรม */
         object-position: center;
       }
+
+      @media screen and (max-height: 1024px) and (orientation: landscape) {
+  .ldp-banner {
+    height: auto !important;
+  }
+  .ldp-banner img {
+    height: auto;
+    width: 100%;
+    object-fit: contain !important;
+    background-color: #000;
+  }
+}
+
 
       .ldp-content {
         position: absolute;
