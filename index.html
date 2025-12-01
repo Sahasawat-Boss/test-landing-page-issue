@@ -56,17 +56,6 @@
         object-position: center;
       }
 
-      @media screen and (max-height: 1024px) and (orientation: landscape) {
-      .ldp-banner {
-        height: auto !important;
-      }
-      .ldp-banner img {
-        height: auto;
-        width: 100%;
-        object-fit: contain !important;
-      }
-    }
-
       .ldp-content {
         position: absolute;
         z-index: 1;
@@ -232,11 +221,22 @@
           display: block;
         }
       }
+
+            @media screen and (max-height: 1024px) and (orientation: landscape) {
+      .ldp-banner {
+        height: auto !important;
+      }
+      .ldp-banner img {
+        height: auto;
+        width: 100%;
+        object-fit: contain !important;
+      }
+    }
     </style>
   </head>
 
   <body>
-    <body style="background-color: #ffffff">
+    <body style="background-color: #1c130f">
       <main id="ldp_page" ldp-name="Sample Document" class="ldp-container">
         <picture class="ldp-banner" aria-hidden="true">
           <source media="(min-width: 1024px)" srcset="mobile-banner.jpg" />
